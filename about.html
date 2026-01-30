@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개 - FinChain AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: #0f172a;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(124, 58, 237, 0.2) 100%);
+        }
+
+        .about-card h2 {
+            font-size: 2.2rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .mission-section {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .mission-section h3 {
+            color: #7c3aed;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .mission-section p {
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .value-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-card h4 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content {
+            background: rgba(30, 41, 59, 0.6);
+            border-left: 3px solid #7c3aed;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .timeline-content h4 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 3rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00d4ff;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            ⛓️ FinChain AI
+        </a>
+        <ul class="nav-links">
+            <li><a href="features.html">기능</a></li>
+            <li><a href="technology.html">기술</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="platform.html" class="cta-btn" style="text-decoration: none;">시작하기</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-header">
+            <h1>FinChain AI 소개</h1>
+            <p>블록체인과 AI가 만드는 금융의 미래</p>
+        </div>
+
+        <div class="content-section">
+            <div class="about-card">
+                <h2>🚀 우리의 비전</h2>
+                <p>
+                    FinChain AI는 <span class="highlight">블록체인 기술과 인공지능을 결합</span>하여 금융 산업의 패러다임을 혁신하는 것을 목표로 합니다.
+                </p>
+                <p>
+                    전 세계 누구나 투명하고 안전하며 효율적인 금융 서비스에 접근할 수 있는 세상을 만들기 위해 우리는 매일 노력하고 있습니다.
+                </p>
+                <p>
+                    2026년 현재, 우리는 <span class="highlight">50개 이상의 국가에서 100만 명의 사용자</span>에게 서비스를 제공하고 있으며, 매일 수십억 달러의 거래를 안전하게 처리하고 있습니다.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$50B+</div>
+                    <div class="stat-label">누적 거래량</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">활성 사용자</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">99.99%</div>
+                    <div class="stat-label">가용성</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">지원 국가</div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2>💡 우리의 미션</h2>
+                <p>
+                    금융 시스템에서 불필요한 중개자를 제거하고, 투명성과 보안을 극대화하면서도 사용자의 개인정보를 철저히 보호하는 플랫폼을 제공합니다.
+                </p>
+                <p>
+                    AI의 강력한 분석 능력과 블록체인의 불변성을 결합하여, 모든 투자자가 더 현명한 결정을 내릴 수 있도록 지원합니다.
+                </p>
+            </div>
+
+            <div class="mission-section">
+                <h3>🎯 우리의 가치</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="icon">🔒</div>
+                        <h4>보안</h4>
+                        <p>군용 수준의 암호화와 블록체인 기술로 완벽한 보안 제공</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon">🤝</div>
+                        <h4>투명성</h4>
+                        <p>모든 거래가 공개되고 검증되어 완전한 투명성 보장</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon">⚡</div>
+                        <h4>효율성</h4>
+                        <p>스마트 계약으로 불필요한 비용과 시간 제거</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon">🌍</div>
+                        <h4>접근성</h4>
+                        <p>누구나 쉽게 글로벌 금융 서비스에 접근 가능</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon">🧠</div>
+                        <h4>혁신</h4>
+                        <p>최첨단 AI 기술로 지속적인 혁신 추진</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="icon">📈</div>
+                        <h4>성장</h4>
+                        <p>사용자의 자산 성장을 최우선으로 고려</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2>📖 우리의 여정</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content">
+                            <h4>회사 설립</h4>
+                            <p>핀테크와 블록체인 전문가들이 모여 FinChain AI 설립</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024 상반기</div>
+                        <div class="timeline-content">
+                            <h4>알파 런칭</h4>
+                            <p>한정된 사용자를 대상으로 플랫폼 알파 버전 출시</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024 하반기</div>
+                        <div class="timeline-content">
+                            <h4>공식 론칭</h4>
+                            <p>베타 버전 공개 및 10만 사용자 확보</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-content">
+                            <h4>글로벌 확장</h4>
+                            <p>50개 국가 진출 및 100만 사용자 달성</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-content">
+                            <h4>산업 리더십</h4>
+                            <p>누적 거래량 $50B 돌파, AI 투자 포트폴리오 론칭</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2>👥 우리의 팀</h2>
+                <p>
+                    FinChain AI는 <span class="highlight">블록체인, 머신러닝, 금융 등 다양한 분야의 전문가들</span>로 이루어진 팀입니다.
+                </p>
+                <p>
+                    MIT, Stanford, Berkeley 등 세계 최고의 대학을 졸업한 엔지니어들과 
+                    Goldman Sachs, JP Morgan 등에서 근무한 금융 전문가들이 함께 미래의 금융을 만들어가고 있습니다.
+                </p>
+                <p>
+                    저희 팀은 기술 혁신뿐만 아니라 사회적 책임감과 투명성을 중시하며, 모든 결정에서 사용자의 이익을 최우선으로 생각합니다.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h2>🎓 연구 & 개발</h2>
+                <p>
+                    FinChain AI는 매년 수익의 <span class="highlight">20% 이상을 R&D</span>에 투자하여 최첨단 기술을 개발합니다.
+                </p>
+                <p>
+                    우리는 세계 유수의 대학과 협력하여 새로운 AI 모델과 블록체인 기술을 연구하고 있으며, 
+                    발견 결과를 학술 논문으로 발표하여 산업 전체의 발전에 기여하고 있습니다.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>FinChain AI</h3>
+            <p>미래의 금융을 함께 만들어갑니다</p>
+            <div class="social-links">
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Discord</a>
+                <a href="#">Email</a>
+            </div>
+            <p style="margin-top: 2rem; border-top: 1px solid rgba(0, 212, 255, 0.1); padding-top: 2rem;">
+                © 2026 FinChain AI. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>핵심 기능 - FinChain AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: #0f172a;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .detail-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(124, 58, 237, 0.2) 100%);
+        }
+
+        .detail-card h2 {
+            font-size: 2.2rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .detail-card .icon {
+            font-size: 2.5rem;
+        }
+
+        .detail-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 3rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00d4ff;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .detail-card {
+                padding: 1.5rem;
+            }
+
+            .detail-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            ⛓️ FinChain AI
+        </a>
+        <ul class="nav-links">
+            <li><a href="features.html">기능</a></li>
+            <li><a href="technology.html">기술</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="platform.html" class="cta-btn" style="text-decoration: none;">시작하기</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-header">
+            <h1>핵심 기능</h1>
+            <p>FinChain AI의 강력한 기능들을 자세히 살펴보세요</p>
+        </div>
+
+        <div class="content-section">
+            <div class="detail-card">
+                <h2><span class="icon">🤖</span>AI 트레이딩 분석</h2>
+                <p>머신러닝 기반의 고급 시장 분석으로 최적의 투자 시점을 정확하게 포착합니다. 우리의 AI 모델은 수십억 개의 데이터포인트를 분석하여 패턴을 인식하고 미래의 시장 움직임을 예측합니다.</p>
+                <ul class="feature-list">
+                    <li>실시간 시장 데이터 분석</li>
+                    <li>정확도 95% 이상의 예측 모델</li>
+                    <li>개인화된 투자 전략 제안</li>
+                    <li>자동화된 리스크 관리 시스템</li>
+                    <li>24/7 모니터링 및 알림</li>
+                </ul>
+                <p><span class="highlight">우리의 AI는 매초 수천 개의 신호를 분석하여 최고의 거래 기회를 찾아냅니다.</span></p>
+            </div>
+
+            <div class="detail-card">
+                <h2><span class="icon">⛓️</span>블록체인 보안</h2>
+                <p>분산 원장 기술을 통해 모든 거래를 투명하고 안전하게 기록합니다. 각 거래는 암호화되고 네트워크의 여러 노드에 의해 검증되어 위변조가 불가능합니다.</p>
+                <ul class="feature-list">
+                    <li>SHA-256 암호화 알고리즘 사용</li>
+                    <li>마이크로프로세싱을 통한 거래 검증</li>
+                    <li>스마트 계약 기반 자동 실행</li>
+                    <li>거래 내역의 완벽한 투명성</li>
+                    <li>Proof-of-Stake 합의 메커니즘</li>
+                </ul>
+                <p><span class="highlight">블록체인 기술로 인해 중간 거래소 없이도 안전한 거래가 가능합니다.</span></p>
+            </div>
+
+            <div class="detail-card">
+                <h2><span class="icon">📊</span>실시간 포트폴리오</h2>
+                <p>다양한 자산을 한 대시보드에서 효율적으로 관리하세요. AI가 자동으로 포트폴리오의 최적 배분을 분석하고 리스크를 최소화하는 전략을 제안합니다.</p>
+                <ul class="feature-list">
+                    <li>자산 분배 최적화</li>
+                    <li>실시간 포트폴리오 평가</li>
+                    <li>위험도 분석 및 보고서</li>
+                    <li>자동화된 리밸런싱</li>
+                    <li>세금 손실 수확 기능</li>
+                </ul>
+                <p><span class="highlight">당신의 재산을 효율적으로 관리하고 수익을 극대화하세요.</span></p>
+            </div>
+
+            <div class="detail-card">
+                <h2><span class="icon">🔐</span>스마트 계약</h2>
+                <p>프로그래밍된 조건에 따라 자동으로 실행되는 거래. 중개인이 필요 없으며, 투명성과 효율성이 획기적으로 향상됩니다.</p>
+                <ul class="feature-list">
+                    <li>자동 실행 계약</li>
+                    <li>조건부 거래 설정</li>
+                    <li>중개 수수료 제거</li>
+                    <li>거래 지연 시간 최소화</li>
+                    <li>분쟁 해결 메커니즘</li>
+                </ul>
+                <p><span class="highlight">스마트 계약으로 신뢰와 효율을 동시에 확보하세요.</span></p>
+            </div>
+
+            <div class="detail-card">
+                <h2><span class="icon">🌍</span>글로벌 시장 접근</h2>
+                <p>24시간 365일 글로벌 마켓에 접근하세요. 암호화폐, 주식, 선물, 외환 등 다양한 자산에 제약 없이 투자할 수 있습니다.</p>
+                <ul class="feature-list">
+                    <li>150개 이상의 국가 시장 접근</li>
+                    <li>다중 통화 지원</li>
+                    <li>저렴한 거래 수수료</li>
+                    <li>신속한 입출금</li>
+                    <li>지역별 규제 준수</li>
+                </ul>
+                <p><span class="highlight">전 세계 시장의 기회를 놓치지 마세요.</span></p>
+            </div>
+
+            <div class="detail-card">
+                <h2><span class="icon">⚡</span>고속 거래 시스템</h2>
+                <p>블록체인 기반의 빠른 결제 시스템으로 거래 지연을 최소화합니다. 밀리초 단위의 거래 실행으로 시장의 기회를 완벽하게 포착할 수 있습니다.</p>
+                <ul class="feature-list">
+                    <li>평균 거래 속도: 100ms 이하</li>
+                    <li>초당 10,000+ 거래 처리 능력</li>
+                    <li>레이어2 스케일링 기술</li>
+                    <li>프리플래시 론 보호</li>
+                    <li>거래 원자성 보장</li>
+                </ul>
+                <p><span class="highlight">극도로 빠른 거래로 시장의 모든 기회를 포착하세요.</span></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>FinChain AI</h3>
+            <p>미래의 금융을 함께 만들어갑니다</p>
+            <div class="social-links">
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Discord</a>
+                <a href="#">Email</a>
+            </div>
+            <p style="margin-top: 2rem; border-top: 1px solid rgba(0, 212, 255, 0.1); padding-top: 2rem;">
+                © 2026 FinChain AI. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

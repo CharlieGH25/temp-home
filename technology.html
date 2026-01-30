@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술 스택 - FinChain AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: #0f172a;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-category {
+            margin-bottom: 4rem;
+        }
+
+        .tech-category h2 {
+            font-size: 2.2rem;
+            color: #00d4ff;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tech-category .icon {
+            font-size: 2.5rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: #7c3aed;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(0, 212, 255, 0.1) 100%);
+            transform: translateY(-5px);
+        }
+
+        .tech-card h3 {
+            color: #7c3aed;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .tech-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .tech-features {
+            list-style: none;
+        }
+
+        .tech-features li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .tech-features li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+        }
+
+        .architecture-section {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.3) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .architecture-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .architecture-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 3rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00d4ff;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .tech-category h2 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            ⛓️ FinChain AI
+        </a>
+        <ul class="nav-links">
+            <li><a href="features.html">기능</a></li>
+            <li><a href="technology.html">기술</a></li>
+            <li><a href="about.html">소개</a></li>
+            <li><a href="platform.html" class="cta-btn" style="text-decoration: none;">시작하기</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-header">
+            <h1>기술 스택</h1>
+            <p>우리가 사용하는 최첨단 기술들을 소개합니다</p>
+        </div>
+
+        <div class="content-section">
+            <div class="tech-category">
+                <h2><span class="icon">🔗</span>블록체인 & 분산 원장</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Ethereum</h3>
+                        <p>스마트 계약 기반의 가장 대중적인 블록체인 플랫폼</p>
+                        <ul class="tech-features">
+                            <li>EVM 호환성</li>
+                            <li>강력한 생태계</li>
+                            <li>DeFi 지원</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Solana</h3>
+                        <p>초고속 처리 능력으로 알려진 레이어 1 블록체인</p>
+                        <ul class="tech-features">
+                            <li>초당 65,000 거래</li>
+                            <li>낮은 수수료</li>
+                            <li>Proof of History</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Polygon</h3>
+                        <p>이더리움의 레이어 2 스케일링 솔루션</p>
+                        <ul class="tech-features">
+                            <li>빠른 거래 속도</li>
+                            <li>낮은 가스비</li>
+                            <li>EVM 호환</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h2><span class="icon">🧠</span>머신러닝 & AI</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>TensorFlow</h3>
+                        <p>Google의 오픈소스 머신러닝 프레임워크</p>
+                        <ul class="tech-features">
+                            <li>대규모 모델 학습</li>
+                            <li>GPU 최적화</li>
+                            <li>배포 용이</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>PyTorch</h3>
+                        <p>Meta의 동적 신경망 프레임워크</p>
+                        <ul class="tech-features">
+                            <li>유연한 구조</li>
+                            <li>연구 친화적</li>
+                            <li>자동 미분</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>XGBoost</h3>
+                        <p>고성능 그래디언트 부스팅 알고리즘</p>
+                        <ul class="tech-features">
+                            <li>매우 빠른 학습</li>
+                            <li>시계열 예측</li>
+                            <li>특성 중요도 분석</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h2><span class="icon">📊</span>데이터 처리 & 분석</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Apache Spark</h3>
+                        <p>대규모 분산 데이터 처리 엔진</p>
+                        <ul class="tech-features">
+                            <li>병렬 처리</li>
+                            <li>인메모리 컴퓨팅</li>
+                            <li>스트리밍 지원</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Pandas</h3>
+                        <p>Python 기반의 데이터 분석 라이브러리</p>
+                        <ul class="tech-features">
+                            <li>데이터 조작</li>
+                            <li>시계열 처리</li>
+                            <li>통계 분석</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>NumPy</h3>
+                        <p>수치 계산을 위한 기본 라이브러리</p>
+                        <ul class="tech-features">
+                            <li>벡터화 연산</li>
+                            <li>선형대수</li>
+                            <li>푸리에 변환</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h2><span class="icon">☁️</span>클라우드 인프라</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>AWS</h3>
+                        <p>Amazon의 포괄적인 클라우드 서비스</p>
+                        <ul class="tech-features">
+                            <li>EC2 인스턴스</li>
+                            <li>S3 스토리지</li>
+                            <li>Lambda 함수</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Google Cloud</h3>
+                        <p>Google의 엔터프라이즈 클라우드 플랫폼</p>
+                        <ul class="tech-features">
+                            <li>BigQuery</li>
+                            <li>Vertex AI</li>
+                            <li>Cloud Run</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Microsoft Azure</h3>
+                        <p>Microsoft의 클라우드 컴퓨팅 플랫폼</p>
+                        <ul class="tech-features">
+                            <li>Virtual Machines</li>
+                            <li>Cosmos DB</li>
+                            <li>AI Services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h2><span class="icon">🔍</span>데이터 시각화</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Tableau</h3>
+                        <p>고급 비즈니스 인텔리전스 플랫폼</p>
+                        <ul class="tech-features">
+                            <li>대시보드 생성</li>
+                            <li>실시간 분석</li>
+                            <li>협업 기능</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Power BI</h3>
+                        <p>Microsoft의 비즈니스 분석 도구</p>
+                        <ul class="tech-features">
+                            <li>자동화된 분석</li>
+                            <li>AI 통합</li>
+                            <li>Office 연동</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Plotly</h3>
+                        <p>대화형 그래프 라이브러리</p>
+                        <ul class="tech-features">
+                            <li>웹 기반</li>
+                            <li>3D 시각화</li>
+                            <li>Dash 통합</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h2><span class="icon">🛡️</span>보안 & 암호화</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Zero-Knowledge Proofs</h3>
+                        <p>거래자의 정보를 공개하지 않고 거래 인증</p>
+                        <ul class="tech-features">
+                            <li>개인정보 보호</li>
+                            <li>완벽한 검증</li>
+                            <li>확장성 개선</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Multi-Signature Wallet</h3>
+                        <p>여러 서명이 필요한 지갑</p>
+                        <ul class="tech-features">
+                            <li>승인 절차</li>
+                            <li>도난 방지</li>
+                            <li>위험 분산</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <h3>SHA-256 암호화</h3>
+                        <p>군용 수준의 암호화 알고리즘</p>
+                        <ul class="tech-features">
+                            <li>256비트 키</li>
+                            <li>일방향 암호화</li>
+                            <li>위변조 감지</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-section">
+                <h3>🏗️ 전체 아키텍처</h3>
+                <p class="architecture-text">
+                    FinChain AI의 기술 스택은 <span class="highlight">블록체인 기반 거래 레이어</span>와 <span class="highlight">클라우드 기반 AI 분석 레이어</span>로 구성되어 있습니다.
+                </p>
+                <p class="architecture-text">
+                    데이터 파이프라인은 실시간 시장 데이터를 수집하고, Apache Spark를 통해 병렬로 처리하며, TensorFlow/PyTorch 모델로 분석합니다. 
+                    분석 결과는 스마트 계약을 통해 자동으로 거래를 실행하고, 모든 거래는 블록체인에 영구적으로 기록됩니다.
+                </p>
+                <p class="architecture-text">
+                    사용자는 Tableau 대시보드를 통해 포트폴리오를 실시간으로 모니터링하고, 
+                    <span class="highlight">Zero-Knowledge Proofs</span>를 통해 개인정보를 보호하면서 모든 거래의 투명성을 확보할 수 있습니다.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>FinChain AI</h3>
+            <p>미래의 금융을 함께 만들어갑니다</p>
+            <div class="social-links">
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Discord</a>
+                <a href="#">Email</a>
+            </div>
+            <p style="margin-top: 2rem; border-top: 1px solid rgba(0, 212, 255, 0.1); padding-top: 2rem;">
+                © 2026 FinChain AI. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
